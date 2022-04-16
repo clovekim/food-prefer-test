@@ -14,3 +14,40 @@ export const progressAtom = atom<number>({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
+
+const testQuizList = [
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+];
+
+export type Quiz = {
+  question: string;
+  answerChoiceList: string[];
+};
+
+export const quizListAtom = atom<Quiz[]>({
+  key: "quizlist",
+  default: testQuizList, // null,
+});

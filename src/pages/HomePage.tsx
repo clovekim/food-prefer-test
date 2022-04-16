@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useResetRecoilState } from "recoil";
+import { progressAtom } from "../recoil/quiz";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const resetProgress = useResetRecoilState(progressAtom);
   return (
     <div className="h-screen bg-gray-50">
       <div className="relative top-1/2 -translate-y-1/2">
@@ -20,11 +24,22 @@ export default function HomePage() {
                 </p>
                 <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
-                    <Link
-                      to="/questions"
+                    <button
+                      onClick={() => {
+                        resetProgress();
+                        navigate("/questions");
+                      }}
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                     >
                       시작하기
+                    </button>
+                  </div>
+                  <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                    <Link
+                      to="/questions"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
+                    >
+                      이어하기
                     </Link>
                   </div>
                 </div>
