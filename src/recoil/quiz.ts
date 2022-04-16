@@ -21,7 +21,31 @@ const testQuizList = [
     answerChoiceList: ["피카츄", "또가스", "파이리"],
   },
   {
+    question: "문제아수라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
     question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제불라불라",
+    answerChoiceList: ["피카츄", "또가스", "파이리"],
+  },
+  {
+    question: "문제아수라",
     answerChoiceList: ["피카츄", "또가스", "파이리"],
   },
   {

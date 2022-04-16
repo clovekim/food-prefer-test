@@ -39,14 +39,18 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
         })}
       </div>
       <div className="flex justify-end gap-4">
-        <button
-          onClick={() => {
-            setProgress(0);
-          }}
-          className="bg-gray-700 h-10 px-8 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-out"
-        >
-          처음부터
-        </button>
+        {order >= 2 && (
+          <button
+            onClick={() => {
+              if (order >= 2) {
+                setProgress(order - 2);
+              }
+            }}
+            className="bg-gray-600 h-10 px-8 text-white rounded-md hover:bg-gray-400 transition-colors duration-150 ease-out"
+          >
+            이전
+          </button>
+        )}
         <button
           onClick={() => {
             if (quizList.length > order) {
@@ -57,7 +61,7 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
           }}
           className="bg-blue-700 h-10 px-8 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-out"
         >
-          다음
+          {order < quizList.length ? "다음" : "결과보기"}
         </button>
       </div>
     </div>
