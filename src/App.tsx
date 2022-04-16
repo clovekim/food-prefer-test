@@ -2,14 +2,16 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 // import logo from "./logo.svg";
 import "./App.css";
+import HomePage from "./pages/HomePage";
+import QuizPage from "./pages/QuizPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="home" element={<div>홈</div>} />
-        <Route path="questions" element={<div>문제들</div>} />
+        <Route path="home" element={<HomePage />} />
+        <Route path="questions" element={<QuizPage />} />
         <Route path="result" element={<div>결과</div>} />
       </Routes>
     </BrowserRouter>
