@@ -5,14 +5,18 @@ type RecoilPersist<T> = {
   persistAtom: AtomEffect<T>;
 };
 
-const { persistAtom } = recoilPersist({
+const { persistAtom: persistProgressAtom } = recoilPersist({
   key: "recoil-persist-progress",
 }) as RecoilPersist<number>;
+
+const { persistAtom: persistQuizAnswerListAtom } = recoilPersist({
+  key: "recoil-persist-quizAnswerList",
+}) as RecoilPersist<Quiz[]>;
 
 export const progressAtom = atom<number>({
   key: "progressAtom",
   default: 0,
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistProgressAtom],
 });
 
 const testQuizList = [
@@ -69,9 +73,16 @@ const testQuizList = [
 export type Quiz = {
   question: string;
   answerChoiceList: string[];
+  choiceNumber?: number;
 };
 
 export const quizListAtom = atom<Quiz[]>({
   key: "quizlist",
   default: testQuizList, // null,
+});
+
+export const quizAnswerListAtom = atom<Quiz[]>({
+  key: "quizAnswerList",
+  default: testQuizList,
+  effects_UNSTABLE: [persistQuizAnswerListAtom],
 });
