@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -11,12 +12,11 @@ interface Props {
 export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
   const quizList = useRecoilValue(quizListAtom);
   const setProgress = useSetRecoilState(progressAtom);
-  const [choiceNumber, setChoiceNumber] = useState<number | undefined>(
-    undefined
-  );
-
   const [quizAnswerList, setQuizAnswerList] =
     useRecoilState(quizAnswerListAtom);
+  const [choiceNumber, setChoiceNumber] = useState<number | undefined>(
+    quizAnswerList[order - 1].choiceNumber
+  );
 
   const navigate = useNavigate();
 
@@ -28,6 +28,8 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
     };
     tempAnswerList.splice(order - 1, 1, quizWithAnswer);
     setQuizAnswerList(tempAnswerList);
+    // 다음 거를 위해
+    setChoiceNumber(quizAnswerList[order].choiceNumber);
     setProgress(order);
   };
 
@@ -39,10 +41,13 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
     };
     tempAnswerList.splice(order - 1, 1, quizWithAnswer);
     setQuizAnswerList(tempAnswerList);
-
-    alert("성공");
-    console.log(tempAnswerList);
+    setChoiceNumber(undefined);
     // api back한테 보내는 행위
+    console.log(tempAnswerList);
+    alert("성공");
+    setProgress(0);
+    setQuizAnswerList(quizList);
+    // navigate("/result");
   };
 
   const answerChoiceButton = (answerChoice: string, index: number) => {
@@ -54,6 +59,7 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
               type="radio"
               className="w-4 h-4"
               name={`quiz-${order}`}
+              checked={index === choiceNumber}
               onChange={(e: any) => {
                 if (e.target.checked) {
                   setChoiceNumber(index);
@@ -86,6 +92,7 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
             onClick={() => {
               if (order >= 2) {
                 setProgress(order - 2);
+                setChoiceNumber(quizAnswerList[order - 2].choiceNumber);
               }
             }}
             className="bg-gray-600 h-10 px-8 text-white rounded-md hover:bg-gray-400 transition-colors duration-150 ease-out"
@@ -96,15 +103,16 @@ export const QuizUnit: FC<Props> = function QuizUnit({ order, quiz }: Props) {
         {quizList.length > order ? (
           <button
             onClick={onNextClick}
-            className="bg-blue-700 h-10 px-8 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-out"
+            disabled={_.isUndefined(choiceNumber)}
+            className="bg-blue-700 h-10 px-8 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-out disabled:opacity-50"
           >
             다음
           </button>
         ) : (
           <button
             onClick={onSubmit}
-            disabled={}
-            className="bg-blue-700 h-10 px-8 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-out"
+            disabled={_.isUndefined(choiceNumber)}
+            className="bg-blue-700 h-10 px-8 text-white rounded-md hover:bg-blue-500 transition-colors duration-150 ease-out disabled:opacity-50"
           >
             결과보기
           </button>

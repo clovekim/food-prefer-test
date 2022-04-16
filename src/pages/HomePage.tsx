@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useResetRecoilState } from "recoil";
-import { progressAtom } from "../recoil/quiz";
+import { progressAtom, quizAnswerListAtom } from "../recoil/quiz";
 
 export default function HomePage() {
   const navigate = useNavigate();
   const resetProgress = useResetRecoilState(progressAtom);
+  const resetQuizAnswerList = useResetRecoilState(quizAnswerListAtom);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="relativ">
@@ -25,6 +27,7 @@ export default function HomePage() {
                   <button
                     onClick={() => {
                       resetProgress();
+                      resetQuizAnswerList();
                       navigate("/questions");
                     }}
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
